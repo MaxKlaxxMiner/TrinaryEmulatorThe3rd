@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	. "tet3rd/tris"
+)
 
 func main() {
-	fmt.Println("Hello Tris!")
+	for i := int32(-100); i <= 100; i++ {
+		fmt.Println(i, Int6New(i))
+	}
 }

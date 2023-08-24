@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	for i := int32(-100); i <= 100; i++ {
-		fmt.Println(i, Int6New(i))
-	}
+	v, c := Uint18(123).Add(MaxUint18-Uint18(55), 0)
+	fmt.Println(v, c)
 }

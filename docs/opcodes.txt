@@ -1,0 +1,30 @@
+
+    000000 ...... mov reg6, reg6
+    000001 ...... mov reg18, reg18
+    000002 ...... mov reg36, reg36
+    000010 ...... add reg6, reg6
+    000011 ...... add reg18, reg18
+    000012 ...... add reg36, reg36
+    000020 ...... sub reg6, reg6
+    000021 ...... sub reg18, reg18
+    000022 ...... sub reg36, reg36
+    000100 ...... xchg reg6, reg6
+    000101 ...... xchg reg18, reg18
+    000102 ...... xchg reg36, reg36
+    000110 ...... cmp reg6, reg6
+    000111 ...... cmp reg18, reg18
+    000112 ...... cmp reg36, reg36
+    000120 ...... jmp const6
+    000121 ...... je const6  (x == x)
+    000122 ...... jne const6 (x != x)
+    000200 ...... ja const6  (u >  u)
+    000201 ...... jae const6 (u >= u)
+    000202 ...... jb const6  (u <  u)
+    000210 ...... jbe const6 (u <= u)
+    000211 ...... jg const6  (s >  s)
+    000212 ...... jge const6 (s >= s)
+    000220 ...... jl const6  (s <  s)
+    000221 ...... jle const6 (s <= s)
+    000222 ...... ret const6 (stackpointer ofs)
+    001...        push reg36
+    002...        pop reg36

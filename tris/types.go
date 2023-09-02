@@ -1,23 +1,18 @@
 package tris
 
-type Uint6 uint32  // 0 - 728
-type Uint18 uint32 // 0 - 387420488
-type Uint36 uint64 // 0 - 150094635296999120
-type Int6 Uint6    // -364 - +364
-type Int18 Uint18  // -193710244 - +193710244
-type Int36 Uint36  // -75047317648499560 - +75047317648499560
+type Uint9 uint   // 0 - 19682
+type Uint27 uint  // 0 - 7625597484986
+type Int9 Uint9   // -9841 - +9841
+type Int27 Uint27 // -3812798742493 - +3812798742493
 
 const (
-	Uint6End  = Uint6(3 * 3 * 3 * 3 * 3 * 3)
-	Uint18End = Uint18(Uint6End * Uint6End * Uint6End)
-	Uint36End = Uint36(uint64(Uint18End) * uint64(Uint18End))
-	MaxUint6  = Uint6End - 1
-	MaxUint18 = Uint18End - 1
-	MaxUint36 = Uint36End - 1
-	MaxInt6   = Int6(MaxUint6) / 2
-	MaxInt18  = Int18(MaxUint18) / 2
-	MaxInt36  = Int36(MaxUint36) / 2
-	MinInt6   = MaxInt6 + 1
-	MinInt18  = MaxInt18 + 1
-	MinInt36  = MaxInt36 + 1
+	Uint9End = Uint9(3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3)
+	MaxUint9 = Uint9End - 1
+	MaxInt9  = Int9(MaxUint9) / 2
+	MinInt9  = MaxInt9 + 1
+
+	Uint27End = Uint27(Uint9End * Uint9End * Uint9End)
+	MaxUint27 = Uint27End - 1
+	MaxInt27  = Int27(MaxUint27) / 2
+	MinInt27  = MaxInt27 + 1
 )

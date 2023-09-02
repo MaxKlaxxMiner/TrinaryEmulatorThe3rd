@@ -1,69 +1,37 @@
 package tris
 
-func (s Int6) Signed() bool {
-	return s > MaxInt6
+func (s Int9) Signed() bool {
+	return s > MaxInt9
 }
 
-func (s Int18) Signed() bool {
-	return s > MaxInt18
+func (s Int27) Signed() bool {
+	return s > MaxInt27
 }
 
-func (s Int36) Signed() bool {
-	return s > MaxInt36
-}
-
-func Int6New(s int32) Int6 {
-	if int32(s) < 0 {
-		return Int6(s + int32(Uint6End))
+func Int9New(s int) Int9 {
+	if s < 0 {
+		return Int9(s + int(Uint9End))
 	}
-	return Int6(s)
+	return Int9(s)
 }
 
-func Int18New(s int32) Int18 {
-	if int32(s) < 0 {
-		return Int18(s + int32(Uint18End))
+func Int27New(s int) Int27 {
+	if s < 0 {
+		return Int27(s + int(Uint27End))
 	}
-	return Int18(s)
+	return Int27(s)
 }
 
-func Int36New(s int64) Int36 {
-	if int32(s) < 0 {
-		return Int36(s + int64(Uint36End))
-	}
-	return Int36(s)
-}
-
-func (s Int6) Int32() int32 {
+func (s Int9) Int() int {
 	if s.Signed() {
-		return int32(s) - int32(Uint6End)
+		return int(s) - int(Uint9End)
 	}
-	return int32(s)
+	return int(s)
 }
 
-func (s Int6) Int64() int64 {
+func (s Int27) Int() int {
 	if s.Signed() {
-		return int64(s) - int64(Uint6End)
+		return int(s) - int(Uint27End)
 	}
-	return int64(s)
-}
-
-func (s Int18) Int32() int32 {
-	if s.Signed() {
-		return int32(s) - int32(Uint18End)
-	}
-	return int32(s)
-}
-
-func (s Int18) Int64() int64 {
-	if s.Signed() {
-		return int64(s) - int64(Uint18End)
-	}
-	return int64(s)
-}
-
-func (s Int36) Int64() int64 {
-	if s.Signed() {
-		return int64(s) - int64(Uint36End)
-	}
-	return int64(s)
+	return int(s)
 }

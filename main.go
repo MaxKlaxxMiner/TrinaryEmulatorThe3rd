@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	v, c := Uint18(123).Add(MaxUint18-Uint18(55), 0)
+	v, c := Uint27(123).Add(MaxUint27-Uint27(55), 0)
 	fmt.Println(v, c)
 }

@@ -21,6 +21,6 @@ func (u Uint27) GetLow() Uint9 {
 	return Uint9(u) % Uint9End
 }
 
-func (u Uint9) MergeParts(hi, mid Uint9) Uint27 {
-	return Uint27(hi*Uint9End*Uint9End + mid*Uint9End + u)
+func (u Uint9) MergeParts(mid, hi Uint9) Uint27 {
+	return Uint27(u + mid*Uint9End + hi*Uint9End*Uint9End)
 }

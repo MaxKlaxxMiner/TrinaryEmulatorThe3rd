@@ -14,8 +14,8 @@ type Mem struct {
 const BitMask uint64 = 0x7ffffffffff // (43 Bits)
 
 func New(size Uint27) *Mem {
-	if size < 3 {
-		panic("size error (size < 3)")
+	if size < 9 {
+		panic("size error (size < 9)")
 	}
 	if size%3 != 0 {
 		panic("size align error (size % 3 != 0)")

@@ -1,9 +1,10 @@
 package tris
 
-type Uint9 uint   // 0 - 19682
-type Uint27 uint  // 0 - 7625597484986
-type Int9 Uint9   // -9841 - +9841
-type Int27 Uint27 // -3812798742493 - +3812798742493
+type Uint9 uint        // 0 - 19682
+type Uint27 uint       // 0 - 7625597484986
+type Uint243 [9]Uint27 // 9x Uint27
+type Int9 Uint9        // -9841 - +9841
+type Int27 Uint27      // -3812798742493 - +3812798742493
 
 const (
 	Uint9End = Uint9(3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3)

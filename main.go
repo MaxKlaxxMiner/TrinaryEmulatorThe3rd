@@ -144,10 +144,143 @@ func memtestGetUint27align() {
 	}
 }
 
+func memtestUint243() {
+	m := mem.New(27*27*27 - 10002)
+	for i := Uint27(0); i < m.Size; i++ {
+		m.SetUint9(i, Uint9(i+10000))
+	}
+
+	//fmt.Println(m.Data)
+
+	for i := Uint27(0); i < m.Size-26; i++ {
+		var v1, v2 Uint243
+		m.GetUint243(i, &v1)
+		m.VanillaGetUint243(i, &v2)
+		fmt.Println(i, "-", v1, "=", v2)
+		if v1 != v2 {
+			fmt.Println("ERR")
+			break
+		}
+	}
+}
+
+func memtestGetUint243() {
+	m := mem.New(27*27*27 - 10002)
+	for i := Uint27(0); i < m.Size; i++ {
+		m.SetUint9(i, Uint9(i+10000))
+	}
+
+	const count = 3000
+
+	for r := 0; r < 3; r++ {
+		var sum Uint27
+		tim := time.Now()
+		for c := 0; c < count/9; c++ {
+			var val Uint243
+			for i := Uint27(0); i < m.Size-26; i++ {
+				m.VanillaGetUint243(i, &val)
+				sum += val[0]
+				sum += val[1]
+				sum += val[2]
+				sum += val[3]
+				sum += val[4]
+				sum += val[5]
+				sum += val[6]
+				sum += val[7]
+				sum += val[8]
+			}
+		}
+		dur := time.Since(tim)
+		fmt.Println(uint64(sum), dur, int(count*float64(m.Size)/float64(dur.Microseconds())), "Ms")
+	}
+	fmt.Println()
+	for r := 0; r < 5; r++ {
+		var sum Uint27
+		tim := time.Now()
+		for c := 0; c < count/9; c++ {
+			var val Uint243
+			for i := Uint27(0); i < m.Size-26; i++ {
+				m.GetUint243(i, &val)
+				sum += val[0]
+				sum += val[1]
+				sum += val[2]
+				sum += val[3]
+				sum += val[4]
+				sum += val[5]
+				sum += val[6]
+				sum += val[7]
+				sum += val[8]
+			}
+		}
+		dur := time.Since(tim)
+		fmt.Println(uint64(sum), dur, int(count*float64(m.Size)/float64(dur.Microseconds())), "Ms")
+	}
+}
+
+func memtestGetUint243align() {
+	m := mem.New(27*27*27 - 10002)
+	for i := Uint27(0); i < m.Size; i++ {
+		m.SetUint9(i, Uint9(i+10000))
+	}
+
+	const count = 3000
+
+	for r := 0; r < 3; r++ {
+		var sum Uint27
+		tim := time.Now()
+		for c := 0; c < count/9; c++ {
+			var val Uint243
+			for i := Uint27(0); i < m.Size-26; i += 3 {
+				m.VanillaGetUint243(i, &val)
+				m.VanillaGetUint243(i, &val)
+				m.VanillaGetUint243(i, &val)
+				sum += val[0]
+				sum += val[1]
+				sum += val[2]
+				sum += val[3]
+				sum += val[4]
+				sum += val[5]
+				sum += val[6]
+				sum += val[7]
+				sum += val[8]
+			}
+		}
+		dur := time.Since(tim)
+		fmt.Println(uint64(sum), dur, int(count*float64(m.Size)/float64(dur.Microseconds())), "Ms")
+	}
+	fmt.Println()
+	for r := 0; r < 5; r++ {
+		var sum Uint27
+		tim := time.Now()
+		for c := 0; c < count/9; c++ {
+			var val Uint243
+			for i := Uint27(0); i < m.Size-26; i += 3 {
+				m.GetUint243(i, &val)
+				m.GetUint243(i, &val)
+				m.GetUint243(i, &val)
+				sum += val[0]
+				sum += val[1]
+				sum += val[2]
+				sum += val[3]
+				sum += val[4]
+				sum += val[5]
+				sum += val[6]
+				sum += val[7]
+				sum += val[8]
+			}
+		}
+		dur := time.Since(tim)
+		fmt.Println(uint64(sum), dur, int(count*float64(m.Size)/float64(dur.Microseconds())), "Ms")
+	}
+}
+
 func main() {
 	//memtestUint9()
 	//memtestGetUint9()
 	//memtestUint27()
 	//memtestGetUint27()
-	memtestGetUint27align()
+	//memtestGetUint27align()
+	//memtestUint243()
+	//memtestGetUint243()
+	memtestGetUint243align()
 }

@@ -30,3 +30,9 @@ func (m *Mem) VanillaGetUint9(ofs Uint27) Uint9 {
 func (m *Mem) VanillaGetUint27(ofs Uint27) Uint27 {
 	return m.VanillaGetUint9(ofs).MergeParts(m.VanillaGetUint9(ofs+1), m.VanillaGetUint9(ofs+2))
 }
+
+func (m *Mem) VanillaGetUint243(ofs Uint27, output *Uint243) {
+	for i := range output {
+		output[i] = m.VanillaGetUint27(ofs + Uint27(i*3))
+	}
+}

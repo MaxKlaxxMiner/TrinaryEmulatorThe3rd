@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"tet3rd/mem"
+	"tet3rd/mem2"
 	. "tet3rd/tris"
 	"time"
 )
@@ -165,7 +166,7 @@ func memtestUint243() {
 }
 
 func memtestGetUint243() {
-	m := mem.New(27*27*27 - 10002)
+	m := mem2.New(27*27*27 - 10002)
 	for i := Uint27(0); i < m.Size; i++ {
 		m.SetUint9(i, Uint9(i+10000))
 	}
@@ -281,6 +282,6 @@ func main() {
 	//memtestGetUint27()
 	//memtestGetUint27align()
 	//memtestUint243()
-	//memtestGetUint243()
-	memtestGetUint243align()
+	memtestGetUint243()
+	//memtestGetUint243align()
 }

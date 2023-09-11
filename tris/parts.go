@@ -1,11 +1,18 @@
 package tris
 
+import "math/bits"
+
 func (u Uint27) GetParts() (hi Uint9, mid Uint9, low Uint9) {
 	tmp := Uint9(u)
-	hi = tmp / (Uint9End * Uint9End)
+	//hi = tmp / (Uint9End * Uint9End)
+	//tmp -= hi * (Uint9End * Uint9End)
+	//mid = tmp / Uint9End
+	//low = tmp % Uint9End
+	h, _ := bits.Mul64(uint64(u), 399417452881983571)
+	hi = Uint9(h >> 23)
 	tmp -= hi * (Uint9End * Uint9End)
-	mid = tmp / Uint9End
-	low = tmp % Uint9End
+	mid = tmp * 3575102585 >> 46
+	low = tmp - mid*Uint9End
 	return
 }
 

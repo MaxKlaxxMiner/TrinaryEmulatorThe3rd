@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"math/bits"
+	"syscall"
 	"tet3rd/mem"
 	"tet3rd/mem2"
 	. "tet3rd/tris"
 	"time"
+	"unsafe"
 )
 
 // flags: -asmflags='all=-compiling-runtime'
@@ -232,24 +234,6 @@ func memtestGetUint243align() {
 	}
 }
 
-func Gp1(u Uint27) (hi Uint9, mid Uint9, low Uint9) {
-	tmp := Uint9(u)
-	hi = tmp / (Uint9End * Uint9End)
-	tmp -= hi * (Uint9End * Uint9End)
-	mid = tmp / Uint9End
-	low = tmp % Uint9End
-	return
-}
-
-func Gp2(u Uint27) (hi Uint9, mid Uint9, low Uint9) {
-	tmp := Uint9(u)
-	hi = tmp / (Uint9End * Uint9End)
-	tmp -= hi * (Uint9End * Uint9End)
-	mid = tmp * 3575102585 >> 46
-	low = tmp - mid*Uint9End
-	return
-}
-
 func splitTest() {
 	const split1 = Uint9End
 	const split2 = Uint9End * Uint9End
@@ -279,8 +263,6 @@ func splitTest() {
 			for s1 := Uint9(0); s1 < split1; s1++ {
 				v := v2 + Uint27(s1)
 				hi, mid, low := v.GetParts()
-				//hi, mid, low := Gp1(v)
-				//hi, mid, low := Gp2(v)
 				//hi, mid, low := Gp3(v)
 				sum += hi + mid + low
 				//if hi != s3 || mid != s2 || low != s1 {
@@ -302,6 +284,24 @@ func Ding2(val1, val2 uint64) (uint64, uint64) {
 	return bits.Mul64(val1, val2)
 }
 
+var (
+	kernel32                      = syscall.MustLoadDLL("kernel32.dll")
+	procQueryPerformanceCounter   = kernel32.MustFindProc("QueryPerformanceCounter")
+	procQueryPerformanceFrequency = kernel32.MustFindProc("QueryPerformanceFrequency")
+)
+
+func QueryPerformanceCounter() int64 {
+	var result int64
+	_, _, _ = procQueryPerformanceCounter.Call(uintptr(unsafe.Pointer(&result)))
+	return result
+}
+
+func QueryPerformanceFrequency() int64 {
+	var result int64
+	_, _, _ = procQueryPerformanceFrequency.Call(uintptr(unsafe.Pointer(&result)))
+	return result
+}
+
 func main() {
 	//memtestUint9()
 	//memtestGetUint9()
@@ -311,5 +311,13 @@ func main() {
 	//memtestUint243()
 	//memtestGetUint243()
 	//memtestGetUint243align()
-	splitTest()
+	//splitTest()
+
+	time.Now()
+
+	fmt.Println("step:", QueryPerformanceFrequency())
+	for i := 0; i < 10; i++ {
+		fmt.Println("tick:", QueryPerformanceCounter())
+		time.Sleep(time.Second)
+	}
 }

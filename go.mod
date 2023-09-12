@@ -1,3 +1,3 @@
 module tet3rd
 
-go 1.21
+go 1.20

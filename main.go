@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// flags: -asmflags='all=-compiling-runtime'
+
 func memtestUint9() {
 	m := mem.New(27*27*27 - 10002)
 	for i := Uint27(0); i < m.Size; i++ {
@@ -241,8 +243,7 @@ func Gp1(u Uint27) (hi Uint9, mid Uint9, low Uint9) {
 
 func Gp2(u Uint27) (hi Uint9, mid Uint9, low Uint9) {
 	tmp := Uint9(u)
-	h, _ := bits.Mul64(uint64(u), 399417452881983571)
-	hi = Uint9(h >> 23)
+	hi = tmp / (Uint9End * Uint9End)
 	tmp -= hi * (Uint9End * Uint9End)
 	mid = tmp * 3575102585 >> 46
 	low = tmp - mid*Uint9End
@@ -254,13 +255,12 @@ func splitTest() {
 	const split2 = Uint9End * Uint9End
 
 	//for s3 := Uint9(0); s3 < split1; s3++ {
-	//for s3 := Uint9(19675); s3 < split1; s3++ {
 	//	fmt.Println(s3, "/", int(split1))
 	//	for s2 := Uint9(0); s2 < split1; s2++ {
 	//		v2 := Uint27(s3*split2 + s2*split1)
 	//		for s1 := Uint9(0); s1 < split1; s1++ {
 	//			v := v2 + Uint27(s1)
-	//			hi, mid, low := Gp2(v)
+	//			hi, mid, low := v.GetParts()
 	//			if hi != s3 || mid != s2 || low != s1 {
 	//				fmt.Println("val", s3, s2, s1)
 	//				fmt.Println("err", uint64(hi), uint64(mid), uint64(low))
@@ -281,6 +281,7 @@ func splitTest() {
 				hi, mid, low := v.GetParts()
 				//hi, mid, low := Gp1(v)
 				//hi, mid, low := Gp2(v)
+				//hi, mid, low := Gp3(v)
 				sum += hi + mid + low
 				//if hi != s3 || mid != s2 || low != s1 {
 				//	fmt.Println()
@@ -295,6 +296,10 @@ func splitTest() {
 	}
 
 	fmt.Println("ready.")
+}
+
+func Ding2(val1, val2 uint64) (uint64, uint64) {
+	return bits.Mul64(val1, val2)
 }
 
 func main() {
